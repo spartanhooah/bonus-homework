@@ -1,5 +1,6 @@
 clear
 load('ad_data.mat')
+load('feature_name.mat')
 lambdas = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
 [~, bootstraps] = bootstrp(1000, @mean, X_train);
 probabilities = zeros(size(X_train, 2), size(lambdas, 2));
@@ -19,4 +20,9 @@ for lambda = lambdas
     probabilities(:, lambdas == lambda) = counts / 1000;
 end
 
-total_probability = max(probabilities, [], 2);
+[total_probability, idx] = sort(max(probabilities, [], 2), 'descend');
+
+for i = 1:20
+    result = sprintf('%-20s %.3f', FeatureNames_PET{idx(i)}, total_probability(i));
+    disp(result)
+end
