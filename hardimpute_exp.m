@@ -17,12 +17,10 @@ omega = noisy == 0;
 r_arr = [1, 5, 10, 15, 20, 25, 30];
 
 for r = r_arr
-    tic
     X_impute = hardimpute(noisy, omega, r);
-    toc
     subplot(1, 3, 3)
     imshow(X_impute)
     title3 = sprintf('r = %d', r);
     title(title3)
-    pause(2)
+    pause(1)
 end

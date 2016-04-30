@@ -15,8 +15,9 @@ for i = 1:size(singulars)
     while true
         Z_old = Z_new;
         Z_Omega_perp = zeros(size(Z_old));
-        Z_Omega_perp(~Omega) = Z_old(~Omega);
-        [U, S, V] = svds(P_X_Omega + Z_Omega_perp, r);
+        Z_Omega_perp(Omega) = Z_old(Omega);
+        temp = P_X_Omega + Z_Omega_perp;
+        [U, S, V] = svds(temp, r);
         Z_new = U * S * V';
         if norm(Z_old - Z_new, 'fro')^2 / norm(Z_old, 'fro')^2 < epsilon
             break
