@@ -8,7 +8,7 @@ P_X_Omega = X_missing;
 Z_new = zeros(size(X_missing));
 Z_old = Z_new;
 singulars = svds(P_X_Omega, r);
-epsilon = 0.1;
+epsilon = 0.01;
 Z_star = {};
 
 for i = 1:size(singulars)
@@ -16,8 +16,7 @@ for i = 1:size(singulars)
         Z_old = Z_new;
         Z_Omega_perp = zeros(size(Z_old));
         Z_Omega_perp(Omega) = Z_old(Omega);
-        temp = P_X_Omega + Z_Omega_perp;
-        [U, S, V] = svds(temp, r);
+        [U, S, V] = svds(P_X_Omega + Z_Omega_perp, r);
         Z_new = U * S * V';
         if norm(Z_old - Z_new, 'fro')^2 / norm(Z_old, 'fro')^2 < epsilon
             break
