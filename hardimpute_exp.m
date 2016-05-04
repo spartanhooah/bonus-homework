@@ -3,7 +3,7 @@ data = imread('Samoa.JPG');
 data = im2double(data);
 long_data = data(:, :, 1);
 long_data = long_data(:);
-[~, idx_to_remove] = datasample(1:size(long_data, 1), floor(size(long_data, 1)/5),...
+[~, idx_to_remove] = datasample(1:size(long_data, 1), floor(size(long_data, 1)/2),...
         'Replace', false);
 r_arr = [1, 5, 10, 15, 20, 25, 30];
 errors = zeros(3, size(r_arr, 2));
@@ -20,7 +20,7 @@ for i = 1:3
     noisy = reshape(noisy, [128 128 1]);
     subplot(3, 3, 2)
     imshow(noisy, 'InitialMagnification', 100)
-    title('20% zeros')
+    title('50% zeros')
     omega = noisy == 0;
 
     for j = 1:size(r_arr, 2)
